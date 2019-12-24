@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -euo pipefail
+
+vagrant up
+vagrant ssh master-0 -c "sudo cat /etc/kubernetes/admin.conf" > ~/.kube/config
+
+echo -e "======================================================"
+echo -e "Finished. Cluster should be healthy and soon in state ready:"
+echo -e "192.168.205.10 is master IP"
+
+kubectl get nodes
+kubectl -n kube-system get all
